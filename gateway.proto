@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package gateway;
+
+//サインアップ
+message SignUpRequest {
+  string student_id = 1;
+  string password = 2;
+}
+
+message SignUpResponse {
+  string message = 1;
+}
+
+//サインイン
+message SignInRequest {
+  string student_id = 1;
+  string password = 2;
+}
+
+message SignInResponse {
+  string message = 1;
+  string address = 2;
+}
+
+//トランザクション生成
+message TransactionRequest {
+  string student_id = 1;
+  string address = 2; //送り先のアドレス，学籍番号でも良いようにしたい
+  float transfer = 3;
+}
+
+message TransactionResponse {
+  string message = 1;
+}
+
+//残高確認
+message BalanceRequest {
+  string student_id = 1;
+}
+
+message BalanceResponse {
+  float balance = 1;
+}
+
+//取引履歴確認
+message HistoryRequest {
+  string student_id = 1;
+}
+
+message HistoryResponse {
+  string message = 1;
+}
+
+
+//サービスのまとめ
+service AVRGateway {
+  rpc SignUp (SignUpRequest) returns (SignUpResponse) {}
+  rpc SignIn (SignInRequest) returns (SignInResponse) {}
+  rpc Transaction (TransactionRequest) returns (TransactionResponse) {}
+  rpc Balance (BalanceRequest) returns (BalanceResponse) {}
+  rpc History (HistoryRequest) returns (HistoryResponse) {}
+}
